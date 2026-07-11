@@ -1,0 +1,74 @@
+[
+  {
+    "n_items": 1000,
+    "base_acc": 0.45,
+    "delta": 0.0625,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 1000,
+    "base_acc": 0.77,
+    "delta": 0.0488,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 5000,
+    "base_acc": 0.45,
+    "delta": 0.0285,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 5000,
+    "base_acc": 0.77,
+    "delta": 0.0246,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 17823,
+    "base_acc": 0.45,
+    "delta": 0.0148,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 17823,
+    "base_acc": 0.77,
+    "delta": 0.0121,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 64384,
+    "base_acc": 0.45,
+    "delta": 0.0082,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  },
+  {
+    "n_items": 64384,
+    "base_acc": 0.77,
+    "delta": 0.007,
+    "power": 0.8,
+    "alpha": 0.05,
+    "n_boot": 1000,
+    "n_sim": 200
+  }
+]

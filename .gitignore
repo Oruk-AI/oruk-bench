@@ -1,0 +1,23 @@
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# tooling
+.pytest_cache/
+.ruff_cache/
+
+# benchmark run artifacts (never commit predictions or data)
+bench_results/
+bench_results_closed/
+fixture_shards/
+*.parquet
+*.npz
+transcripts_*.json
+
+# eval data must never land in this repo
+data_shards/
