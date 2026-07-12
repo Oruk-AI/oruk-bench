@@ -203,6 +203,18 @@
       "in_distribution": false
     },
     {
+      "model": "audiollm-meralion-2-10b",
+      "group": "audio_llm",
+      "params_m": 10000,
+      "accuracy": 0.4086,
+      "macro_f1": 0.3148,
+      "modality": "audio",
+      "subsample": true,
+      "ours": false,
+      "in_distribution": false,
+      "api_errors_defaulted_to_neutral": 0
+    },
+    {
       "model": "anthropic_claude-opus-4-8",
       "group": "closed_api",
       "params_m": null,
