@@ -24,6 +24,7 @@ models that appear on this leaderboard.** They are marked **OURS** and
 | emotion2vec-base-finetuned | 63.6% | 0.616 | |
 | EmotionThinker (Qwen2.5-Omni-7B FT) | 60.5% | 0.504 | 5k subsample* |
 | SenseVoice-small | 55.7% | 0.469 | |
+| Qwen2.5-Omni-7B | 51.4% | 0.440 | 5k subsample* |
 | Gemini 3 Flash Preview (best closed) | 46.0% | 0.373 | 5k subsample* |
 | Gemini 2.5 Flash | 45.4% | 0.370 | 5k subsample* |
 | OpenAI gpt-audio-1.5 | 43.3% | 0.347 | 5k subsample* |

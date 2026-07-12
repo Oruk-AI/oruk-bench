@@ -1,7 +1,7 @@
 {
   "benchmark": "oruk-bench",
   "version": "0.1.0",
-  "generated": "2026-07-11",
+  "generated": "2026-07-12",
   "full_set_n": 64384,
   "subsample_n": 5000,
   "labels": [
@@ -97,6 +97,18 @@
       "subsample": false,
       "ours": false,
       "in_distribution": false
+    },
+    {
+      "model": "audiollm-qwen2.5-omni-7b",
+      "group": "audio_llm",
+      "params_m": 7000,
+      "accuracy": 0.5138,
+      "macro_f1": 0.4395,
+      "modality": "audio",
+      "subsample": true,
+      "ours": false,
+      "in_distribution": false,
+      "api_errors_defaulted_to_neutral": 20
     },
     {
       "model": "gemini-gemini-3-flash-preview",
