@@ -85,7 +85,7 @@ def main() -> None:
     escrow = "\n".join([
         "# ESCROW — speech-emotion-bench private v1",
         "",
-        f"- file: `private_v1_labels.parquet`",
+        "- file: `private_v1_labels.parquet`",
         f"- sha256: `{digest}`",
         f"- frozen_at_utc: {stamp}",
         f"- rows: {n_rows}",
