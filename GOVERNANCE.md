@@ -7,8 +7,8 @@ leaderboard.** We do not pretend otherwise, and we mitigate it structurally:
 
 - Every oruk model is marked **OURS** and **in-distribution** in the README,
   in `leaderboard/leaderboard.json` (`"ours": true, "in_distribution": true`),
-  and in any derived reporting. oruk models are trained on this benchmark's
-  training split; every other entrant is evaluated zero-shot cross-corpus.
+  and in any derived reporting. oruk models are trained in-distribution;
+  every other entrant is evaluated zero-shot cross-corpus.
   These numbers answer "how well can a model do on this distribution when
   trained for it" — they are not a like-for-like comparison with zero-shot
   entrants, and we say so wherever they appear.

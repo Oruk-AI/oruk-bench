@@ -18,7 +18,7 @@ Closed and API-priced models are scored on a validated 5,000-clip stratified sub
 
 | Model | Type | Accuracy | Macro-F1 | Notes |
 |---|---|---|---|---|
-| oruk-spectra (ours) | Fine-tuned, 640M | **77.6%** | **0.810** | Trained on this benchmark's training split — see disclosure below |
+| oruk-spectra (ours) | Specialized, trained in-distribution | **77.6%** | **0.810** | See disclosure below |
 | emotion2vec+ family | Open zero-shot | 68.5–68.7% | — | Best open zero-shot |
 | EmotionThinker | Open audio-LLM (emotion-specialized Qwen-Omni FT, ICLR 2026) | 60.5% | 0.504 | |
 | Gemini 3 Flash Preview | Frontier API | 46.0% | — | |
@@ -51,9 +51,9 @@ We gave frontier models their best chance: all seven options listed in the promp
 
 We publish this benchmark, and we also publish a model that leads it. State that plainly and handle it with structure, not asterisks.
 
-**oruk-spectra** is a fine-tuned Whisper-large-v3 encoder, 640M parameters, trained on the benchmark's *training* split. It scores 77.6% accuracy and 0.810 macro-F1 on the held-out set. It is not a zero-shot result and it is never presented as one: the "trained on this benchmark's training data" disclosure appears on every leaderboard row, every table, and every figure where the number appears. The right zero-shot comparison for frontier labs is the emotion2vec+ family at 68.5–68.7% — still more than 20 points above the best frontier API model.
+**oruk-spectra** is our specialized speech-emotion model, trained in-distribution for this task. It scores 77.6% accuracy and 0.810 macro-F1 on the held-out set. It is not a zero-shot result and it is never presented as one: the "trained in-distribution" disclosure appears on every leaderboard row, every table, and every figure where the number appears. The right zero-shot comparison for frontier labs is the emotion2vec+ family at 68.5–68.7% — still more than 20 points above the best frontier API model.
 
-The honest claim is narrower than "our model beats Gemini." It is: *a 640M-parameter open-architecture model trained on task data solves most of this problem, and trillion-parameter frontier models with best-chance prompting do not.* The gap is a supervision gap, not a scale gap.
+The honest claim is narrower than "our model beats Gemini." It is: *a small specialized model trained on task data solves most of this problem, and trillion-parameter frontier models with best-chance prompting do not.* The gap is a supervision gap, not a scale gap.
 
 ## What's next: a split no one can train on
 

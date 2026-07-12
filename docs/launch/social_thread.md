@@ -14,7 +14,7 @@ github.com/Oruk-AI/oruk-bench
 **2/**
 The board:
 
-oruk-spectra (ours, fine-tuned*) — 77.6%
+oruk-spectra (ours, specialized*) — 77.6%
 emotion2vec+ (best open zero-shot) — 68.5–68.7%
 EmotionThinker — 60.5%
 Gemini 3 Flash Preview — 46.0%
@@ -24,7 +24,7 @@ gpt-audio-1.5 — 43.3%
 gpt-audio-mini — 39.7%
 Voxtral-Mini-3B — 36.6%
 
-*trained on the benchmark's training split. Disclosed on every row.
+*trained in-distribution. Disclosed on every row.
 
 **3/**
 The most telling number isn't a frontier model's.
@@ -44,7 +44,7 @@ Where they fail, per class:
 Frontier models' best class is neutral (~0.53 F1) — the default answer when unsure.
 Disgust: 0.13–0.19 F1. They nearly can't hear it.
 
-Our 640M model: disgust 0.905, fear 0.864. The signal is in the audio. It's learnable.
+Our specialized model: disgust 0.905, fear 0.864. The signal is in the audio. It's learnable.
 
 **6/**
 Refusals count as errors. gpt-audio-1.5 declined 161 of 5,000 clips; gpt-audio-mini declined 473. A judge that won't answer hasn't answered. All refusal counts published.
@@ -75,6 +75,6 @@ Three results I think this crowd will find interesting:
 
 2. Claude has no audio input at all (verified against the live API), so we ran it on transcripts only: 39–40%. That's the control that matters — audio-capable models barely beat a model that never hears the clip. Per-class, frontier models lean on "neutral" (~0.53 F1, their best class) and nearly miss disgust (0.13–0.19 F1).
 
-3. Conflict of interest, stated plainly: our own model (oruk-spectra, 640M, fine-tuned Whisper-large-v3 encoder) tops the board at 77.6% / 0.810 macro-F1, and it's trained on the benchmark's training split. That's disclosed on every row — the fair zero-shot comparison is emotion2vec+ at ~68.5%. The point isn't "we beat Gemini"; it's that a 640M model with task supervision solves most of a problem trillion-parameter models don't.
+3. Conflict of interest, stated plainly: our own model (oruk-spectra) tops the board at 77.6% / 0.810 macro-F1, and it's trained in-distribution. That's disclosed on every row — the fair zero-shot comparison is emotion2vec+ at ~68.5%. The point isn't "we beat Gemini"; it's that a specialized model with task supervision solves most of a problem trillion-parameter models don't.
 
 Refusals count as errors (gpt-audio-1.5: 161/5,000; gpt-audio-mini: 473/5,000). Next up is an escrowed private split (~18k clips, 3-rater Prolific annotations, published SHA-256) so nobody — including us — can train on the test set. Evaluation is free for any lab and results go up unedited. Happy to answer questions about the protocol.

@@ -16,4 +16,4 @@ The three most quotable results:
 
 Full leaderboard, open methodology, and researchers available for interview. Interested?
 
-[name], Oruk AI
+Nathan Roll, Oruk AI

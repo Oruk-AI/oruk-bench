@@ -17,9 +17,9 @@ Two offers:
 1. **Free evaluation of any unreleased or updated model on our private set** — escrowed, never on the public internet, SHA-256 published in advance. 48-hour turnaround from checkpoint or API access to full scored report.
 2. If you believe our prompting undersells your model, send us your preferred prompt and we'll run it and publish both configurations, unedited.
 
-Disclosure up front: our own fine-tuned model (oruk-spectra, trained on the benchmark's training split — labeled as such everywhere) scores 77.6%. The gap we're measuring is supervision, not scale, and we'd genuinely like your models to close it.
+Disclosure up front: our own model (oruk-spectra, trained in-distribution — labeled as such everywhere) scores 77.6%. The gap we're measuring is supervision, not scale, and we'd genuinely like your models to close it.
 
-[name], Oruk AI
+Nathan Roll, Oruk AI
 
 ---
 
@@ -37,7 +37,7 @@ We're exploring judge-calibration work with agent-QA platforms: benchmark your c
 
 Worth 20 minutes?
 
-[name], Oruk AI
+Nathan Roll, Oruk AI
 
 ---
 
@@ -55,4 +55,4 @@ The ask is light — a few design reviews per year, acknowledged in the report (
 
 May I send the technical report?
 
-[name], Oruk AI
+Nathan Roll, Oruk AI

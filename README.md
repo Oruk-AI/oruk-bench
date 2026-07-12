@@ -17,7 +17,7 @@ models that appear on this leaderboard.** They are marked **OURS** and
 
 | Model | Accuracy | Macro-F1 | Notes |
 |---|---:|---:|---|
-| **oruk-spectra** (Whisper-L-v3 FT, 640M) | **77.6%** | **0.810** | **OURS — trained in-distribution** |
+| **oruk-spectra** | **77.6%** | **0.810** | **OURS — trained in-distribution** |
 | emotion2vec-plus-seed | 68.7% | 0.680 | |
 | emotion2vec-plus-large | 68.6% | 0.677 | |
 | emotion2vec-plus-base | 68.5% | 0.683 | |
@@ -34,8 +34,8 @@ subsample (seed 0), validated by rescoring open models on the same subsample
 refusal/error counts, are in
 [`leaderboard/leaderboard.json`](leaderboard/leaderboard.json).
 
-**Fairness note:** oruk-spectra is trained on this benchmark's training split
-(in-distribution); every other entrant is zero-shot cross-corpus. This is
+**Fairness note:** oruk-spectra is trained in-distribution; every other
+entrant is zero-shot cross-corpus. This is
 disclosed on every surface where the number appears. Any lab can request a free
 evaluation of their model — see [GOVERNANCE.md](GOVERNANCE.md).
 

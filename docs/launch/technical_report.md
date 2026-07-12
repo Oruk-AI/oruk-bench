@@ -6,7 +6,7 @@
 
 ## Abstract
 
-We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clips across approximately 20 languages, labeled with seven emotion classes (anger, happiness, sadness, fear, disgust, surprise, neutral), scored identically for all models. We evaluate frontier multimodal APIs, open-weight audio-LLMs, open zero-shot speech-emotion models, and our own fine-tuned model under a single open harness. Frontier multimodal models cluster at 40.0–46.0% accuracy under best-chance prompting — barely 3× the 14.3% random baseline — while a transcript-only text-model control scores 39–40%, indicating that much of frontier audio-model performance is attributable to lexical content rather than prosody. The best open zero-shot models (emotion2vec+ family) reach 68.5–68.7%. Our fine-tuned model, oruk-spectra (Whisper-large-v3 encoder, 640M parameters, trained on the benchmark's training split — disclosed in every result), reaches 77.6% accuracy / 0.810 macro-F1, demonstrating that the task is largely solvable from the acoustic signal with task supervision. Per-class analysis shows frontier models depend on the neutral class (best per-class F1 ≈ 0.53) and nearly fail on disgust (F1 0.13–0.19). We release an open harness (`pip install oruk-bench`), free evaluation for any lab with unedited result publication, and announce an escrowed private split with published SHA-256 to address contamination.
+We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clips across approximately 20 languages, labeled with seven emotion classes (anger, happiness, sadness, fear, disgust, surprise, neutral), scored identically for all models. We evaluate frontier multimodal APIs, open-weight audio-LLMs, open zero-shot speech-emotion models, and our own specialized model under a single open harness. Frontier multimodal models cluster at 40.0–46.0% accuracy under best-chance prompting — barely 3× the 14.3% random baseline — while a transcript-only text-model control scores 39–40%, indicating that much of frontier audio-model performance is attributable to lexical content rather than prosody. The best open zero-shot models (emotion2vec+ family) reach 68.5–68.7%. Our specialized model, oruk-spectra (trained in-distribution — disclosed in every result), reaches 77.6% accuracy / 0.810 macro-F1, demonstrating that the task is largely solvable from the acoustic signal with task supervision. Per-class analysis shows frontier models depend on the neutral class (best per-class F1 ≈ 0.53) and nearly fail on disgust (F1 0.13–0.19). We release an open harness (`pip install oruk-bench`), free evaluation for any lab with unedited result publication, and announce an escrowed private split with published SHA-256 to address contamination.
 
 ---
 
@@ -22,7 +22,7 @@ We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clip
 - 64,384 held-out clips; 7 emotion classes: anger, happiness, sadness, fear, disgust, surprise, neutral.
 - ~20 languages represented. **TODO:** per-language clip counts table.
 - **TODO:** source corpora enumeration, licensing summary, acted vs. spontaneous composition per corpus.
-- Train/held-out split discipline: the held-out set is disjoint from the training split used by oruk-spectra (§4.1); split construction documented in the harness repository.
+- Train/held-out split discipline: the held-out set is disjoint from any data used to train oruk-spectra (§4.1).
 
 ### 2.2 Class balance
 - **TODO:** class distribution table for full set and subsample.
@@ -56,8 +56,8 @@ We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clip
 ## 4. Models Evaluated
 
 ### 4.1 oruk-spectra (ours)
-- Fine-tuned Whisper-large-v3 encoder; 640M parameters; trained on the benchmark's training split.
-- **Disclosure (repeated wherever the number appears):** oruk-spectra is trained in-distribution on this benchmark's training data. It is not a zero-shot result and is not comparable to zero-shot rows without this caveat.
+- Specialized speech-emotion model developed by Oruk AI; architecture and training details are proprietary.
+- **Disclosure (repeated wherever the number appears):** oruk-spectra is trained in-distribution. It is not a zero-shot result and is not comparable to zero-shot rows without this caveat.
 
 ### 4.2 Open zero-shot speech-emotion models
 - emotion2vec+ family (best open zero-shot): 68.5–68.7% accuracy.
@@ -77,7 +77,7 @@ We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clip
 
 | Model | Type | Accuracy | Macro-F1 | Refusals |
 |---|---|---|---|---|
-| oruk-spectra† | Fine-tuned (in-distribution) | 77.6% | 0.810 | 0 |
+| oruk-spectra† | Specialized (in-distribution) | 77.6% | 0.810 | 0 |
 | emotion2vec+ family | Open zero-shot | 68.5–68.7% | — | 0 |
 | EmotionThinker | Open audio-LLM | 60.5% | 0.504 | — |
 | Gemini 3 Flash Preview | Frontier API | 46.0% | — | — |
@@ -90,7 +90,7 @@ We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clip
 | Voxtral-Mini-3B | Open audio-LLM | 36.6% | 0.204 | — |
 | Random | Baseline | 14.3% | — | — |
 
-† Trained on this benchmark's training split (see §4.1 disclosure).
+† Trained in-distribution (see §4.1 disclosure).
 
 ### 5.2 Per-class analysis
 - Frontier models: best per-class F1 is neutral (≈0.53); disgust F1 ranges 0.13–0.19 across the frontier cohort.
@@ -103,7 +103,7 @@ We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clip
 
 ## 6. Limitations
 
-1. **In-distribution advantage of our model.** oruk-spectra is trained on the benchmark's training split; its 77.6% is an in-distribution supervised result, not evidence of general zero-shot superiority. The fair zero-shot reference is the emotion2vec+ family.
+1. **In-distribution advantage of our model.** oruk-spectra is trained in-distribution; its 77.6% is an in-distribution supervised result, not evidence of general zero-shot superiority. The fair zero-shot reference is the emotion2vec+ family.
 2. **English-heavy evaluation.** Although ~20 languages are present, the distribution skews English. Per-language results (**TODO**) should be consulted before multilingual claims.
 3. **Acted vs. spontaneous mix.** Source corpora include acted studio speech; acted emotion is more prototypical than spontaneous emotion, and absolute scores likely overstate real-world performance for all models.
 4. **Single-label taxonomy.** Forced single-label choice under-represents mixed and ambiguous affect; the multi-annotator distribution layer (§7) is intended to address this.
@@ -123,7 +123,7 @@ We introduce **speech-emotion bench**, a benchmark of 64,384 held-out audio clip
 
 ## References
 
-- **TODO:** emotion2vec+, EmotionThinker (ICLR 2026), Voxtral, Whisper-large-v3, source corpora citations, EU AI Act.
+- **TODO:** emotion2vec+, EmotionThinker (ICLR 2026), Voxtral, source corpora citations, EU AI Act.
 
 ## Appendix A: Prompt text (verbatim) — **TODO**
 ## Appendix B: Subsample validation details (full-vs-subsample deltas per model) — **TODO**

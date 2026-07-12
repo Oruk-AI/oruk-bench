@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "oruk-bench"
-version = "0.1.0"
+version = "0.1.1"
 description = "Public tooling for the Oruk speech-emotion benchmark: data loading, scoring, model adapters, and leaderboard statistics"
 readme = "README.md"
 license = "Apache-2.0"

@@ -24,16 +24,14 @@ from pathlib import Path
 FULL_SET_N = 64384
 SUBSAMPLE_N = 5000
 
-# Public display metadata. ours-s6-whisper-large-v3 is the internal run name of
-# the released oruk-spectra model.
-OURS = {
-    "ours-s6-whisper-large-v3": {
-        "model": "oruk-spectra",
-        "params_m": 640,
-        "notes": "Whisper-large-v3 encoder fine-tune by Oruk AI. Trained on this "
-                 "benchmark's training split (in-distribution); all other entrants "
-                 "are zero-shot cross-corpus.",
-    },
+# Public display metadata for oruk models. Any run whose internal name starts
+# with "ours" is published as oruk-spectra; model internals are not disclosed.
+OURS_PREFIX = "ours"
+OURS_META = {
+    "model": "oruk-spectra",
+    "params_m": None,
+    "notes": "Oruk AI model, trained in-distribution; all other entrants "
+             "are zero-shot cross-corpus.",
 }
 
 OPEN_PARAMS_M = {
@@ -99,8 +97,8 @@ def main():
 
     # -- open models, full 64,384-clip set --------------------------------
     for name, m in report["open_full"].items():
-        if name in OURS:
-            meta = OURS[name]
+        if name.startswith(OURS_PREFIX):
+            meta = OURS_META
             entries.append(entry(meta["model"], "oruk", meta["params_m"],
                                  m["acc"], m["mf1"], "audio", subsample=False,
                                  ours=True, in_distribution=True, notes=meta["notes"]))
@@ -147,8 +145,8 @@ def main():
                          "subsample (seed 0) used for API-priced and audio-LLM "
                          "models; false = full set. Rescoring open models on the "
                          "subsample shifts scores <2 points.",
-            "in_distribution": "true = trained on this benchmark's training "
-                               "split; other entrants are zero-shot cross-corpus.",
+            "in_distribution": "true = trained in-distribution for this "
+                               "benchmark; other entrants are zero-shot cross-corpus.",
             "api_errors_defaulted_to_neutral": "refusals/parse failures/API "
                                                "errors count as a neutral "
                                                "prediction, never dropped.",

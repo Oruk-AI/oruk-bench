@@ -15,21 +15,21 @@
   ],
   "metric_notes": {
     "subsample": "true = scored on the fixed 5,000-clip stratified subsample (seed 0) used for API-priced and audio-LLM models; false = full set. Rescoring open models on the subsample shifts scores <2 points.",
-    "in_distribution": "true = trained on this benchmark's training split; other entrants are zero-shot cross-corpus.",
+    "in_distribution": "true = trained in-distribution for this benchmark; other entrants are zero-shot cross-corpus.",
     "api_errors_defaulted_to_neutral": "refusals/parse failures/API errors count as a neutral prediction, never dropped."
   },
   "entries": [
     {
       "model": "oruk-spectra",
       "group": "oruk",
-      "params_m": 640,
+      "params_m": null,
       "accuracy": 0.7756,
       "macro_f1": 0.8102,
       "modality": "audio",
       "subsample": false,
       "ours": true,
       "in_distribution": true,
-      "notes": "Whisper-large-v3 encoder fine-tune by Oruk AI. Trained on this benchmark's training split (in-distribution); all other entrants are zero-shot cross-corpus."
+      "notes": "Oruk AI model, trained in-distribution; all other entrants are zero-shot cross-corpus."
     },
     {
       "model": "emotion2vec-plus-seed",
