@@ -13,6 +13,21 @@ Maintained by [Oruk AI](https://github.com/Oruk-AI). **Disclosure: Oruk trains
 models that appear on this leaderboard.** They are marked **OURS** and
 *in-distribution* everywhere they appear. See [GOVERNANCE.md](GOVERNANCE.md).
 
+## Snapshot and model identity — September 6, 2026
+
+The `oruk-spectra` result in this repository (**77.6% accuracy, 0.810 macro-F1**)
+is the earlier published checkpoint snapshot. The [website benchmark](https://oruk.ai/benchmarks)
+reports a later Spectra 1 checkpoint at **77.8%, 0.816**, with its
+[methodology and limitations](https://oruk.ai/benchmarks/methodology).
+These are different checkpoint snapshots; the historical result files here
+have not been replaced or relabeled.
+
+Both results describe historical Spectra models, retired from the hosted API
+on September 4, 2026. **Neither is a Resonance evaluation.**
+[Resonance is Oruk's current flagship speech recognition model](https://oruk.ai/models#resonance).
+Use the [current API documentation](https://oruk.ai/docs) for model IDs,
+supported outputs, and access; do not infer current API support from a benchmark adapter.
+
 ## Leaderboard highlights
 
 | Model | Accuracy | Macro-F1 | Notes |
