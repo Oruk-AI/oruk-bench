@@ -29,9 +29,25 @@ TARGET_SR = 16000
 MAX_SECONDS = 16.0
 
 # Normalizes every label spelling seen across public SER models to our space.
+#
+# "positive" is the only entry that widens a source taxonomy rather than
+# respelling ours. The DUSHA dataset documentation names the class
+# "Happiness (Positive)" outright -- see the emotion list in
+# https://github.com/salute-developers/golos/blob/master/dusha/README.md -- so
+# this is the authors' own equivalence, not an inference from the sibling
+# labels. No other DUSHA class maps onto happiness, so it introduces no merge.
+#
+# "enthusiasm" (Aniemore RESD) is deliberately NOT aliased even though PROMPT
+# below names it under happiness. RESD and Aniemore's xlsr checkpoint both
+# expose enthusiasm *and* happiness, so aliasing it would map two mutually
+# exclusive softmax classes onto one of ours -- and the adapters combine
+# duplicates with max() rather than summing, which under-counts the merged
+# class. Until that aggregation is settled, enthusiasm stays unmapped and its
+# mass is ignored, like any other class we cannot represent.
 LABEL_ALIASES = {
     "anger": "anger", "angry": "anger", "ang": "anger",
     "happiness": "happiness", "happy": "happiness", "hap": "happiness", "joy": "happiness",
+    "positive": "happiness",
     "sadness": "sadness", "sad": "sadness",
     "fear": "fear", "fearful": "fear", "fea": "fear",
     "disgust": "disgust", "disgusted": "disgust", "dis": "disgust",
