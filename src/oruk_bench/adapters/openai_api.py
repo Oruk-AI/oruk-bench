@@ -74,7 +74,9 @@ def post_retry(url, headers, payload, max_retries=6, timeout=120):
             last = f"HTTP {r.status_code}: {r.text[:200]}"
             if r.status_code not in (429, 500, 502, 503, 504, 529):
                 return None, last
-        except Exception as e:
+        # Keep transport and malformed-response failures inside the historical
+        # retry/neutral-fallback protocol, independent of provider exception type.
+        except Exception as e:  # noqa: BLE001
             last = f"{type(e).__name__}: {e}"
         time.sleep(min(60, 2 ** attempt * 2))
     return None, last
@@ -130,7 +132,9 @@ def transcribe(audio):
             last = f"HTTP {r.status_code}: {r.text[:200]}"
             if r.status_code not in (429, 500, 502, 503, 504):
                 return None, last
-        except Exception as e:
+        # Keep transcription failures inside the existing bounded retry path;
+        # callers retain their historical empty-transcript fallback.
+        except Exception as e:  # noqa: BLE001
             last = f"{type(e).__name__}: {e}"
         time.sleep(min(60, 2 ** attempt * 2))
     return None, last
@@ -243,7 +247,7 @@ def run_anthropic_model(model, sub_idx, clip_fn, y, sl, ss, out_dir, workers=8):
         t0, cnt = time.time(), 0
 
         def tx_work(i):
-            text, err = transcribe(clip_fn(int(sub_idx[i])))
+            text, _err = transcribe(clip_fn(int(sub_idx[i])))
             return i, text if text is not None else ""
 
         with ThreadPoolExecutor(max_workers=workers) as ex:

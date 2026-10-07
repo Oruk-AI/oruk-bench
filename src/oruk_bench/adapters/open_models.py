@@ -12,6 +12,7 @@ Requires the ``[open]`` extra: torch, transformers, funasr, speechbrain.
 import json
 import time
 from pathlib import Path
+from typing import ClassVar
 
 import numpy as np
 
@@ -195,8 +196,10 @@ class VoxProfileAdapter:
     point ``repo_path`` at it (defaults to ~/vox-profile-release).
     """
 
-    VOX_LABELS = ["Anger", "Contempt", "Disgust", "Fear", "Happiness", "Neutral",
-                  "Sadness", "Surprise", "Other"]
+    VOX_LABELS: ClassVar[list[str]] = [
+        "Anger", "Contempt", "Disgust", "Fear", "Happiness", "Neutral",
+        "Sadness", "Surprise", "Other",
+    ]
 
     def __init__(self, cfg, device):
         import sys

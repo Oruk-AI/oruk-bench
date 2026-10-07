@@ -40,6 +40,28 @@ def test_score_npz(tmp_path, capsys):
     assert result["macro_f1"] == 1.0
 
 
+def test_score_retains_headline_when_optional_ci_fails(tmp_path, capsys, monkeypatch):
+    from oruk_bench import stats
+
+    def unavailable_ci(*args, **kwargs):
+        raise RuntimeError("synthetic-private-diagnostic-must-not-be-logged")
+
+    monkeypatch.setattr(stats, "bootstrap_ci", unavailable_ci)
+    p = tmp_path / "preds.json"
+    g = tmp_path / "labels.json"
+    p.write_text(json.dumps(["anger", "neutral"]), encoding="utf-8")
+    g.write_text(json.dumps(["anger", "surprise"]), encoding="utf-8")
+
+    main(["score", "--preds", str(p), "--labels", str(g)])
+
+    captured = capsys.readouterr()
+    result = json.loads(captured.out)
+    assert result["n"] == 2
+    assert result["accuracy"] == 0.5
+    assert "macro_f1_ci95" not in result
+    assert "synthetic-private-diagnostic" not in captured.out + captured.err
+
+
 def test_score_length_mismatch(tmp_path):
     p = tmp_path / "preds.json"
     g = tmp_path / "labels.json"

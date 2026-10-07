@@ -19,9 +19,10 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections.abc import Callable, Sequence
 from dataclasses import asdict, dataclass, field
+from itertools import pairwise
 from pathlib import Path
-from typing import Callable, Sequence
 
 import numpy as np
 from sklearn.metrics import f1_score
@@ -30,14 +31,14 @@ MetricFn = Callable[[np.ndarray, np.ndarray], float]
 
 __all__ = [
     "BootstrapResult",
-    "PairedTestResult",
     "MinDetectableDeltaResult",
+    "PairedTestResult",
     "bootstrap_ci",
-    "paired_bootstrap_test",
-    "soft_label_metrics",
-    "prompt_ensemble_summary",
-    "min_detectable_delta",
     "main",
+    "min_detectable_delta",
+    "paired_bootstrap_test",
+    "prompt_ensemble_summary",
+    "soft_label_metrics",
 ]
 
 
@@ -531,8 +532,8 @@ def _load_labels(labels_path: Path) -> tuple[np.ndarray, np.ndarray | None, np.n
                 f"(found keys: {sorted(data.files)})"
             )
         y_true = data["y_true"]
-        clusters = data["clusters"] if "clusters" in data else None
-        clip_ids = data["clip_ids"] if "clip_ids" in data else None
+        clusters = data.get("clusters")
+        clip_ids = data.get("clip_ids")
     return y_true, clusters, clip_ids
 
 
@@ -545,7 +546,7 @@ def _load_preds(preds_path: Path, n: int, label_clip_ids: np.ndarray | None) -> 
                 f"(found keys: {sorted(data.files)})"
             )
         y_pred = data[key]
-        pred_clip_ids = data["clip_ids"] if "clip_ids" in data else None
+        pred_clip_ids = data.get("clip_ids")
     if pred_clip_ids is not None and label_clip_ids is not None:
         pos = {cid: i for i, cid in enumerate(pred_clip_ids)}
         try:
@@ -637,7 +638,7 @@ def _cmd_leaderboard(args: argparse.Namespace) -> None:
 
     rows.sort(key=lambda r: r[metric]["point"], reverse=True)
     adjacent = []
-    for upper, lower in zip(rows, rows[1:]):
+    for upper, lower in pairwise(rows):
         test = paired_bootstrap_test(
             y_true,
             preds_by_stem[upper["file_stem"]],
@@ -674,7 +675,7 @@ def _cmd_leaderboard(args: argparse.Namespace) -> None:
         "n_boot": args.n_boot,
         "n_items": n,
         "clustered": clusters is not None,
-        "n_clusters": int(len(np.unique(clusters))) if clusters is not None else n,
+        "n_clusters": len(np.unique(clusters)) if clusters is not None else n,
         "labels_file": str(labels_path),
         "models": rows,
         "adjacent_tests": adjacent,
