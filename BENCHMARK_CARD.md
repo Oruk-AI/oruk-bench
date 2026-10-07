@@ -41,15 +41,21 @@ access or reconstruct equivalents from the source corpora. Shards are parquet
 files with `audio_flac` / `label` / `language` / `source_id` columns, read in
 sorted-filename order.
 
-**Private label layer (private-v1, upcoming).** A proprietary multi-rater
-human annotation layer collected via Prolific is being added as an escrowed
-private split. Per-clip labels are aggregated from multiple independent raters
-with quality controls (attention checks, gold-standard calibration items,
-rater agreement filters). The private split will ship as:
+**Private label layer (private-v1, limited annotation coverage).** The
+[annotation QC report](prolific_qc/QC_SUMMARY.md) records a frozen file of 13,716
+clips from public studio corpora with fresh Prolific labels. After rater QC,
+13,704 clips have one included rater, 12 have two, and none have three. The
+three-rater design target was not reached. Treat these as predominantly
+single-listener labels; the 12 clean pairs do not establish agreement across
+the full pool.
 
-- a published SHA-256 hash of the frozen private set at freeze time,
-- public/private score-gap monitoring for every leaderboard entrant, so
-  overfitting to the public shards is detectable and disclosed.
+The report records private storage and a privately retained hash. A published
+manifest commitment, completed multi-rater coverage, model-development exclusion
+audit and matched public/private results for every entrant are not established
+by this repository. They remain prerequisites for the planned comparison; see
+[GOVERNANCE.md](GOVERNANCE.md#private-labels-current-evidence-and-planned-evaluation).
+Fresh labels and a private file are not proof that the underlying audio was
+unseen by a model. The historical public leaderboard is unchanged.
 
 No participant-identifying data, rater data, or raw annotation records are
 published in this repository — only aggregate benchmark statistics.
