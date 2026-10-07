@@ -64,10 +64,12 @@ class TokenSource:
             with urllib.request.urlopen(req, timeout=10) as r:
                 d = json.load(r)
             return d["access_token"], time.time() + d["expires_in"]
-        except Exception:
+        # Metadata absence, transport failures and malformed replies all use
+        # the existing local gcloud credential fallback without logging tokens.
+        except Exception:  # noqa: BLE001
             tok = subprocess.run(
                 ["gcloud", "auth", "print-access-token"],
-                capture_output=True, text=True, shell=sys.platform == "win32",
+                capture_output=True, text=True, shell=sys.platform == "win32", check=False,
             ).stdout.strip()
             return tok, time.time() + 1800
 
@@ -123,7 +125,9 @@ def classify(model, audio, tokens, project, thinking_budget, max_retries=6):
             last_err = f"HTTP {code}: {e.read().decode()[:200]}"
             if code not in (429, 500, 503, 504):
                 break
-        except Exception as e:
+        # Preserve retries and the caller's neutral fallback for provider,
+        # transport and response-decoding failures alike.
+        except Exception as e:  # noqa: BLE001
             last_err = f"{type(e).__name__}: {e}"
         time.sleep(min(60, 2 ** attempt * 2))
     return None, last_err

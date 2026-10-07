@@ -53,8 +53,7 @@ class QwenOmniAdapter:
 
     def __init__(self, model_id, device):
         import torch
-        from transformers import (Qwen2_5OmniProcessor,
-                                  Qwen2_5OmniThinkerForConditionalGeneration)
+        from transformers import Qwen2_5OmniProcessor, Qwen2_5OmniThinkerForConditionalGeneration
 
         self.torch = torch
         self.processor = Qwen2_5OmniProcessor.from_pretrained(model_id)
@@ -217,7 +216,9 @@ def run_eval(model_name, sub_idx, clip_fn, y, sl, ss, out_dir, device="cuda:0"):
         try:
             text = adapter.classify(audio)
             lab = parse_label(text)
-        except Exception as e:
+        # Third-party adapters expose different exception types; retain the
+        # historical per-clip failure record and neutral fallback below.
+        except Exception as e:  # noqa: BLE001
             lab, text = None, f"EXC {type(e).__name__}: {e}"
         if lab is None:
             errors.append({"i": int(i), "out": str(text)[:120]})
