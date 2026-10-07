@@ -27,7 +27,7 @@ def fixture_dir(tmp_path_factory):
 
 def test_load_eval(fixture_dir):
     d, gold = fixture_dir
-    tables, index, labels, langs, sources = load_eval(d)
+    _tables, index, labels, langs, sources = load_eval(d)
     assert len(index) == N_CLIPS
     assert labels.tolist() == gold
     assert set(langs) <= {"en", "de", "th", "unknown"}
@@ -87,7 +87,7 @@ def test_score_supported_subset():
 
 def test_score_on_fixture(fixture_dir):
     d, _ = fixture_dir
-    tables, index, labels, langs, sources = load_eval(d)
+    _tables, _index, labels, langs, sources = load_eval(d)
     rng = np.random.default_rng(1)
     preds = rng.integers(0, len(LABELS), size=len(labels))
     out = score(labels, preds, langs, sources, list(LABELS))

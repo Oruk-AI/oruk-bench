@@ -85,7 +85,9 @@ def load_eval(shard_dir):
     for path in sorted(Path(shard_dir).glob("*.parquet")):
         try:
             t = pq.read_table(path)
-        except Exception as e:
+        # Parquet backends expose different read exceptions; preserve the
+        # historical skip-unreadable-shard behavior rather than changing inputs.
+        except Exception as e:  # noqa: BLE001
             print(f"[warn] skip {path.name}: {e}", flush=True)
             continue
         if t.num_rows == 0:
@@ -126,7 +128,7 @@ def stratified_subsample(labels, n_total, seed=0):
     n = len(labels)
     for c in range(len(LABELS)):
         c_idx = np.where(labels == c)[0]
-        take = max(1, int(round(n_total * len(c_idx) / n)))
+        take = max(1, round(n_total * len(c_idx) / n))
         idx_all.append(rng.choice(c_idx, size=min(take, len(c_idx)), replace=False))
     return np.sort(np.concatenate(idx_all))
 
@@ -150,7 +152,7 @@ def score(y, preds, langs, sources, supported):
         y, preds, labels=range(len(LABELS)), zero_division=0
     )
     out = {
-        "n": int(len(y)),
+        "n": len(y),
         "accuracy": float(accuracy_score(y, preds)),
         "macro_f1": float(f1_score(y, preds, average="macro", zero_division=0)),
         "weighted_f1": float(f1_score(y, preds, average="weighted", zero_division=0)),

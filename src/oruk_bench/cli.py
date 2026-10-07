@@ -69,7 +69,9 @@ def cmd_score(args):
 
         ci = bootstrap_ci(y, preds, metric_fn=protocol_macro_f1, seed=0)
         result["macro_f1_ci95"] = ci.to_dict() if hasattr(ci, "to_dict") else ci
-    except Exception:
+    # Statistical extras are best effort: preserve the historical headline
+    # score even if an optional CI fails, without logging user data/exceptions.
+    except Exception:  # noqa: BLE001, S110
         pass
     text = json.dumps(result, indent=2)
     if args.out:

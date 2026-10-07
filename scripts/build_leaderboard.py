@@ -135,7 +135,8 @@ def main():
     out = {
         "benchmark": "oruk-bench",
         "version": "0.1.0",
-        "generated": datetime.date.today().isoformat(),
+        # Preserve the historical local calendar date, using an aware instant.
+        "generated": datetime.datetime.now(datetime.timezone.utc).astimezone().date().isoformat(),
         "full_set_n": FULL_SET_N,
         "subsample_n": SUBSAMPLE_N,
         "labels": ["anger", "happiness", "sadness", "fear", "disgust",
