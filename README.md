@@ -55,6 +55,12 @@ entrant is zero-shot cross-corpus. This is
 disclosed on every surface where the number appears. Any lab can request a free
 evaluation of their model — see [GOVERNANCE.md](GOVERNANCE.md).
 
+**Private evaluation status:** the existing private-v1 labels are predominantly
+single-rater: 13,704 clips have one included rater, 12 have two, and none have
+three. They do not establish the planned multi-rater private comparison. See
+the [QC report](prolific_qc/QC_SUMMARY.md) and
+[current evidence and remaining work](GOVERNANCE.md#private-labels-current-evidence-and-planned-evaluation).
+
 ## Install
 
 ```bash
@@ -128,7 +134,7 @@ tests/
 ## Documentation
 
 - [BENCHMARK_CARD.md](BENCHMARK_CARD.md) — task definition, data provenance, scoring protocol, versioning
-- [GOVERNANCE.md](GOVERNANCE.md) — conflict-of-interest disclosure, free-evaluation policy, private split escrow
+- [GOVERNANCE.md](GOVERNANCE.md) — conflict-of-interest disclosure, free-evaluation policy, private-label evidence and planned comparison
 - [INTENDED_USE.md](INTENDED_USE.md) — what this benchmark is (and explicitly is not) for
 - [CONTRIBUTING.md](CONTRIBUTING.md) — adding a model adapter, submitting results
 

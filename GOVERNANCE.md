@@ -42,21 +42,36 @@ Any lab may request an evaluation run of their model at no cost:
 - Compute or API credits donated to run third-party evaluations are disclosed
   in the result metadata if accepted.
 
-## Escrowed private split
+## Private labels: current evidence and planned evaluation
 
-To make overfitting to the public benchmark detectable:
+The [published annotation QC report](prolific_qc/QC_SUMMARY.md) describes a
+frozen private-v1 label file with **13,716 clips**. Of these, 13,704 have one
+included rater, 12 have two, and none have three. The planned three-rater
+coverage was not reached. Most selection fractions therefore describe one
+listener's choices, not an estimated distribution across listeners.
 
-- A private evaluation split (private-v1, multi-rater human labels; see
-  BENCHMARK_CARD.md) is held in escrow and never distributed.
-- At freeze time we publish the **SHA-256 hash** of the frozen private split
-  manifest, so its contents are cryptographically committed before any model is
-  scored against it.
-- Every leaderboard entrant is scored on both the public shards and the private
-  split, and we publish **public/private gap monitoring**: a persistent,
-  unexplained positive gap on the public side is flagged on the entry and
-  investigated as possible benchmark contamination.
-- The private split refreshes on a published cadence; hashes for retired splits
-  are kept so historical results remain auditable.
+The underlying audio comes from public studio corpora. Private storage of fresh
+labels does not establish that the recordings, speakers or sources were excluded
+from every evaluated model's development. The QC report marks 1,889 clips from
+CREMA-D and RAVDESS as in-distribution audio; the other clips' fresh labels alone
+do not establish model independence.
+
+The QC report records a private Hugging Face upload and a hash retained with the
+private artifacts. This repository does not publish that frozen-file hash or
+completed private-v1 results for every leaderboard entrant. It does not establish
+custody by an independent external evaluator. **The historical leaderboard is
+not a completed public/private comparison.**
+
+Before publishing such a comparison, we must document the permitted use and
+development-exclusion scope, complete the planned annotation coverage, freeze
+and publish a permission-safe manifest commitment before inference, and register
+the scorer and evaluated model revisions. An external evaluator's role must be
+stated separately from Oruk's role. Results must retain failures and the
+limitations of each population; a public/private score gap alone does not
+establish contamination.
+
+Private-split comparisons and a refresh cadence remain planned work. Historical
+results and their original scoring rules are unchanged by this clarification.
 
 ## Changes to this document
 
